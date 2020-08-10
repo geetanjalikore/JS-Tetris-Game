@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded',()=>{
     const grid=document.querySelector('.grid');
+    let squares=Array.from(grid.querySelectorAll('div'))
     const width=10;
     const height=20;
+    let currentPosotion=4;
 
     //The Tetromonoes
     const lTetromino=[
@@ -45,4 +47,48 @@ document.addEventListener('DOMContentLoaded',()=>{
     let random=Math.floor(Math.random()*theTetrominoes.length);
     let currentRotation=0
     let current=theTetrominoes[random][currentRotation]
+
+    //Draw the shape 
+    function draw(){
+        current.forEach(index=>(
+            squares[currentPosotion+index].classList.add('block')
+        ))
+    }
+
+    function undraw(){
+        current.forEach(index=>(
+            squares[currentPosotion+index].classList.remove('block')
+        ))
+    }
+
+    //move down the shape
+    function moveDown(){
+        undraw()
+        currentPosotion=currentPosotion+=width
+        draw()
+        freeze()
+    }
+
+    function moveRight(){
+        undraw()
+        const isAtRightEdge=current.some(index=>(currentPosition+index)%width==width-1);
+        if(!isAtRightEdge) currentPosotion+=1;
+        if(currentPosotion.some(index=>squares[currentPosotion+index].classList.contains('block'))){
+            currentPosotion-=1;
+        }
+        draw()
+
+    }
+
+    function moveLeft(){
+        undraw()
+        const isLeftEdge=current.some(index=>(currentPosotion+index)%width===0)
+        if(isLeftEdge) currentPosotion-=1
+        if(current.some(index=>squares[currentPosotion+index].classList.contains('block2'))){
+            currentPosotion+=1
+        }
+        draw()
+    }
+    
+
 })
