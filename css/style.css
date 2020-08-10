@@ -1,0 +1,18 @@
+div{
+    background-color: yellow;
+    height: 20px;
+    width: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.grid{
+    height:400px;    /*blue color disabled*/
+    width: 200px;
+    display: flex;
+    flex-wrap: wrap;   
+}
+
+.block{
+    background-color: blue;
+}
